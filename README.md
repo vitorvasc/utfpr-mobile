@@ -14,3 +14,6 @@ Após avaliação do usuário em um determinado filme, o aplicativo também irá
 - Filme (nome, ano, duração, descrição, categoria)
 - Categoria (nome)
 - Avaliação (filme, data, nota, comentários) 
+
+# Imagens:
+![image](https://user-images.githubusercontent.com/12118857/155153630-0a80cc33-439d-4954-aa54-581a76a1c8a6.png)
