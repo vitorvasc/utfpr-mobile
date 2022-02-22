@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="movie_genres">
+        <item>@string/action</item>
+        <item>@string/animation</item>
+        <item>@string/adventure</item>
+        <item>@string/comedy</item>
+        <item>@string/documentary</item>
+        <item>@string/sci_fi</item>
+        <item>@string/thriller</item>
+        <item>@string/horror</item>
+    </string-array>
+</resources>
