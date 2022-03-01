@@ -1,4 +1,4 @@
-package com.vitor.controlefilmes;
+package com.vitor.controlefilmes.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.vitor.controlefilmes.R;
 import com.vitor.controlefilmes.dto.Review;
 
 public class MainActivity extends AppCompatActivity {

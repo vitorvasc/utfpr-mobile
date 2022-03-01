@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageViewMovieImage"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:maxWidth="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/movie_spider_man_no_way_home" />
+
+    <TextView
+        android:id="@+id/textViewMovieNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/name"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovieImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMovieName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMovieNameLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewMovieNameLabel" />
+
+    <TextView
+        android:id="@+id/textViewMovieYearLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/year"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewMovieNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMovieNameLabel" />
+
+    <TextView
+        android:id="@+id/textViewMovieYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMovieYearLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewMovieYearLabel" />
+
+    <TextView
+        android:id="@+id/textViewMovieDurationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/duration"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewMovieYearLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMovieYearLabel" />
+
+    <TextView
+        android:id="@+id/textViewMovieDurationLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_weight="1"
+        android:text="@string/minutes"
+        app:layout_constraintStart_toEndOf="@+id/textViewMovieDuration"
+        app:layout_constraintTop_toTopOf="@+id/textViewMovieDuration" />
+
+    <TextView
+        android:id="@+id/textViewMovieDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMovieDurationLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewMovieDurationLabel" />
+
+    <TextView
+        android:id="@+id/textViewMovieGenreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/genre"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewMovieDurationLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMovieDurationLabel" />
+
+    <TextView
+        android:id="@+id/textViewMovieGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMovieGenreLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewMovieGenreLabel" />
+</androidx.constraintlayout.widget.ConstraintLayout>
