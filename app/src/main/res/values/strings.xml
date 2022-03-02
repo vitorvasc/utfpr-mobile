@@ -28,4 +28,14 @@
     <string name="duration">Duração:</string>
     <string name="genre">Gênero:</string>
     <string name="minutes">minutos</string>
+    <string name="spider_man_no_way_home">"Spider-Man - No Way Home"</string>
+    <string name="encanto">"Encanto"</string>
+    <string name="the_kings_man">"The King's Man"</string>
+    <string name="x_men_origins_wolverine">"X-Men Origins: Wolverine"</string>
+    <string name="the_amazing_spider_man">"The Amazing Spider-Man"</string>
+    <string name="the_incredible_hulk">"The Incredible Hulk"</string>
+    <string name="taxi_driver">"Taxi Driver"</string>
+    <string name="scarface">"Scarface"</string>
+    <string name="pulp_fiction">"Pulp Fiction"</string>
+    <string name="fight_club">"Fight Club"</string>
 </resources>

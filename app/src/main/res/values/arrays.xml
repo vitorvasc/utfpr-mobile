@@ -13,16 +13,16 @@
     </string-array>
 
     <string-array name="popular_movies_names">
-        <item>"Spider-Man - No Way Home"</item>
-        <item>"Encanto"</item>
-        <item>"The King's Man"</item>
-        <item>"X-Men Origins: Wolverine"</item>
-        <item>"The Amazing Spider-Man"</item>
-        <item>"The Incredible Hulk"</item>
-        <item>"Taxi Driver"</item>
-        <item>"Scarface"</item>
-        <item>"Pulp Fiction"</item>
-        <item>"Fight Club"</item>
+        <item>@string/spider_man_no_way_home</item>
+        <item>@string/encanto</item>
+        <item>@string/the_kings_man</item>
+        <item>@string/x_men_origins_wolverine</item>
+        <item>@string/the_amazing_spider_man</item>
+        <item>@string/the_incredible_hulk</item>
+        <item>@string/taxi_driver</item>
+        <item>@string/scarface</item>
+        <item>@string/pulp_fiction</item>
+        <item>@string/fight_club</item>
     </string-array>
 
     <integer-array name="popular_movies_images">
