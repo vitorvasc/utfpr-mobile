@@ -13,7 +13,7 @@ import com.vitor.controlefilmes.entity.Movie;
 
 import java.util.List;
 
-public class MovieListAdapter extends BaseAdapter {
+public final class MovieListAdapter extends BaseAdapter {
 
     Context context;
     List<Movie> movieList;

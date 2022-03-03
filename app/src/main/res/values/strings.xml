@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">ControleFilmes</string>
+    <string name="app_owner_name">Vitor Vasconcellos dos Santos</string>
+    <string name="app_owner_email">contato@vitorvasconcellos.com.br</string>
+    <string name="app_description">"Este aplicativo auxilia o usuário a guardar uma avaliação e opinião sobre os filmes e séries que já assistiu."</string>
+    <string name="website_utfpr">www.utfpr.edu.br</string>
     <string name="movie_title">Título do filme / série</string>
     <string name="has_spoilers">Análise contém spoilers</string>
     <string name="write_review">Escreva uma análise</string>
@@ -38,4 +42,6 @@
     <string name="scarface">"Scarface"</string>
     <string name="pulp_fiction">"Pulp Fiction"</string>
     <string name="fight_club">"Fight Club"</string>
+    <string name="about">Informações</string>
+    <string name="action_not_possible">Não foi possível realizar esta ação.</string>
 </resources>

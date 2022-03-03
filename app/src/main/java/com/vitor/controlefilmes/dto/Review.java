@@ -1,6 +1,6 @@
 package com.vitor.controlefilmes.dto;
 
-public class Review {
+public final class Review {
 
     private final String title;
     private final String genre;

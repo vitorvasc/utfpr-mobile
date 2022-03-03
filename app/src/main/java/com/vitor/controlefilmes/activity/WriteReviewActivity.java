@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.vitor.controlefilmes.R;
 import com.vitor.controlefilmes.dto.Review;
 
-public class MainActivity extends AppCompatActivity {
+public final class WriteReviewActivity extends AppCompatActivity {
 
     private EditText editTextMovieTitle, editTextWriteReview;
     private Spinner spinnerMovieGenre;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.submit_review);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_write_review);
 
         editTextMovieTitle = findViewById(R.id.editTextMovieTitle);
         editTextWriteReview = findViewById(R.id.editTextWriteReview);

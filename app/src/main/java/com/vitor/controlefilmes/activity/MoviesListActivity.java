@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,7 +15,7 @@ import com.vitor.controlefilmes.entity.Movie;
 
 import java.util.ArrayList;
 
-public class MoviesListActivity extends AppCompatActivity {
+public final class MoviesListActivity extends AppCompatActivity {
 
     private ListView listViewMovies;
 

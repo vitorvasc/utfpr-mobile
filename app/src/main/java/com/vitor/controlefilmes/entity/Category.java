@@ -1,6 +1,6 @@
 package com.vitor.controlefilmes.entity;
 
-public class Category {
+public final class Category {
 
     private final String name;
 
