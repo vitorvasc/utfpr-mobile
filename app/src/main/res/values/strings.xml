@@ -7,6 +7,7 @@
     <string name="movie_title">Título do filme / série</string>
     <string name="has_spoilers">Análise contém spoilers</string>
     <string name="write_review">Escreva uma análise</string>
+    <string name="edit_review">Edite a análise</string>
     <string name="review">Análise</string>
     <string name="rating">Nota</string>
     <string name="recommends_movie">Recomenda para outra pessoa?</string>
@@ -44,4 +45,5 @@
     <string name="fight_club">"Fight Club"</string>
     <string name="about">Informações</string>
     <string name="action_not_possible">Não foi possível realizar esta ação.</string>
+    <string name="action_canceled">A ação foi cancelada!</string>
 </resources>

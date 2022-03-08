@@ -3,4 +3,11 @@ package com.vitor.controlefilmes.service;
 public final class Constants {
 
     public static final String WEBSITE_UTFPR = "https://www.utfpr.edu.br";
+
+    public static final String REVIEW = "REVIEW";
+    public static final String KEY_REVIEW = "REVIEW";
+
+    public static final int REQUEST_CODE_ADD_REVIEW = 1;
+    public static final int REQUEST_CODE_EDIT_REVIEW = 2;
+
 }

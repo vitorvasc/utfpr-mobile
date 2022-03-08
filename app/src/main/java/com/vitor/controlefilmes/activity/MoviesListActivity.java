@@ -1,91 +1,97 @@
 package com.vitor.controlefilmes.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.vitor.controlefilmes.service.Constants.REQUEST_CODE_ADD_REVIEW;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import android.util.Pair;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.vitor.controlefilmes.R;
-import com.vitor.controlefilmes.adapter.MovieListAdapter;
-import com.vitor.controlefilmes.entity.Category;
-import com.vitor.controlefilmes.entity.Movie;
+import com.vitor.controlefilmes.adapter.ReviewListAdapter;
+import com.vitor.controlefilmes.dto.Review;
+import com.vitor.controlefilmes.service.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class MoviesListActivity extends AppCompatActivity {
 
-    private ListView listViewMovies;
+    private ReviewListAdapter reviewsAdapter;
+    private ArrayList<Pair<Review, Drawable>> reviewsList;
+    private Map<String, Drawable> movieImages;
+    private ListView listReviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies_list);
 
-        listViewMovies = findViewById(R.id.listViewMovies);
+        listReviews = findViewById(R.id.listReviews);
 
-        listViewMovies.setOnItemClickListener((adapterView, view, position, id) -> {
-            Movie movie = (Movie) listViewMovies.getItemAtPosition(position);
-            Toast.makeText(this, movie.toString(), Toast.LENGTH_LONG).show();
+        listReviews.setOnItemClickListener((adapterView, view, position, id) -> {
+            Review review = (Review) listReviews.getItemAtPosition(position);
+            Toast.makeText(this, review.getTitle(), Toast.LENGTH_LONG).show();
         });
 
-        populateMoviesListView();
+        loadMovieImages();
+        populateReviewsList();
     }
 
-    private void populateMoviesListView() {
-
-        final String[] arrayName = getResources().getStringArray(R.array.popular_movies_names);
-        final TypedArray arrayImages = getResources().obtainTypedArray(R.array.popular_movies_images);
-        final int[] arrayYear = getResources().getIntArray(R.array.popular_movies_year);
-        final String[] arrayDescription = getResources().getStringArray(R.array.popular_movies_descriptions);
-        final int[] arrayDuration = getResources().getIntArray(R.array.popular_movies_duration);
-        final String[] arrayGenres = getResources().getStringArray(R.array.popular_movies_genres);
-
-        final ArrayList<Movie> movies = new ArrayList<>();
-
-        for (int i = 0; i < arrayName.length; i++) {
-            movies.add(createNewMovie(
-                    arrayName[i],
-                    arrayImages.getDrawable(i),
-                    arrayYear[i],
-                    arrayDescription[i],
-                    arrayDuration[i],
-                    arrayGenres[i]
-            ));
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(this, R.string.action_canceled, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW && resultCode == Activity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                Review review = (Review) bundle.getSerializable(Constants.REVIEW);
+                reviewsList.add(Pair.create(review, movieImages.get(review.getTitle())));
+                reviewsAdapter.notifyDataSetChanged();
+            }
         }
 
-        MovieListAdapter adapter = new MovieListAdapter(
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void addReviewFromButton(View view) {
+        showReviewActivity();
+    }
+
+    public void showAboutActivity(View view) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
+
+    private void showReviewActivity() {
+        Intent intent = new Intent(this, WriteReviewActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_ADD_REVIEW);
+    }
+
+    private void populateReviewsList() {
+        reviewsList = new ArrayList<>();
+        reviewsAdapter = new ReviewListAdapter(
                 this,
-                movies
+                reviewsList
         );
-
-        listViewMovies.setAdapter(adapter);
+        listReviews.setAdapter(reviewsAdapter);
     }
 
-    private Movie createNewMovie(final String name,
-                                 final Drawable image,
-                                 final int year,
-                                 final String description,
-                                 final int duration,
-                                 final String genreName
-    ) {
-        final Movie.Builder movieBuilder = Movie.newBuilder();
-
-        return movieBuilder.withName(name)
-                .withImage(image)
-                .withYear(year)
-                .withDescription(description)
-                .withDuration(duration)
-                .withCategory(createNewCategory(genreName))
-                .build();
-    }
-
-    private Category createNewCategory(String genreName) {
-        final Category.Builder categoryBuilder = Category.newBuilder();
-
-        return categoryBuilder.withName(genreName)
-                .build();
+    private void loadMovieImages() {
+        final String[] arrayName = getResources().getStringArray(R.array.popular_movies_names);
+        final TypedArray arrayImages = getResources().obtainTypedArray(R.array.popular_movies_images);
+        movieImages = new HashMap<>();
+        for (int i = 0; i < arrayName.length; i++) {
+            movieImages.put(arrayName[i], arrayImages.getDrawable(i));
+        }
     }
 }

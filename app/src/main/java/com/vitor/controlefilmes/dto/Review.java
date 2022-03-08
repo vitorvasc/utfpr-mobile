@@ -1,6 +1,8 @@
 package com.vitor.controlefilmes.dto;
 
-public final class Review {
+import java.io.Serializable;
+
+public final class Review implements Serializable {
 
     private final String title;
     private final String genre;
@@ -40,6 +42,14 @@ public final class Review {
 
     public int getRecommends() {
         return recommends;
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + getTitle() + "\n" +
+                "Gênero: " + getGenre() + "\n" +
+                "Nota: " + getRating() + "\n" +
+                "Recomenda? " + (getRecommends() == 0 ? "Não" : "Sim");
     }
 
     public static Builder newBuilder() {

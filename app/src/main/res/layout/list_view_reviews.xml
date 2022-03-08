@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageViewMovieImage"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:maxWidth="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/movie_spider_man_no_way_home" />
+
+    <TextView
+        android:id="@+id/textViewMovieNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/name"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovieImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMovieName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMovieNameLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewMovieNameLabel" />
+
+    <TextView
+        android:id="@+id/textViewReviewGenreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/genre"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewMovieNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMovieNameLabel" />
+
+    <TextView
+        android:id="@+id/textViewReviewGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewReviewGenreLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewReviewGenreLabel" />
+
+    <TextView
+        android:id="@+id/textViewReviewRatingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/rating"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewReviewGenreLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReviewGenreLabel" />
+
+    <TextView
+        android:id="@+id/textViewReviewRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewReviewRatingLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewReviewRatingLabel" />
+
+    <TextView
+        android:id="@+id/textViewReviewRecommendsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/recommends_movie"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewReviewRatingLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReviewRatingLabel" />
+
+    <TextView
+        android:id="@+id/textViewReviewRecommends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewReviewRecommendsLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewReviewRecommendsLabel" />
+</androidx.constraintlayout.widget.ConstraintLayout>

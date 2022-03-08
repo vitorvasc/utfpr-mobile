@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 public final class Movie {
 
     private final String name;
-    private Drawable image;
+    private final Drawable image;
     private final int year;
     private final int duration;
     private final String description;

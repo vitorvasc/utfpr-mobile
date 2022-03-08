@@ -2,6 +2,10 @@ package com.vitor.controlefilmes.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,15 +16,22 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vitor.controlefilmes.R;
+import com.vitor.controlefilmes.adapter.MovieListAdapter;
 import com.vitor.controlefilmes.dto.Review;
+import com.vitor.controlefilmes.entity.Category;
+import com.vitor.controlefilmes.entity.Movie;
+import com.vitor.controlefilmes.service.Constants;
+
+import java.util.ArrayList;
 
 public final class WriteReviewActivity extends AppCompatActivity {
 
-    private EditText editTextMovieTitle, editTextWriteReview;
-    private Spinner spinnerMovieGenre;
+    private EditText editTextWriteReview;
+    private Spinner spinnerMovieTitle;
     private RatingBar ratingBarRating;
     private CheckBox checkBoxContainSpoilers;
     private RadioGroup radioGroupRecommends;
+    private int requestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +39,36 @@ public final class WriteReviewActivity extends AppCompatActivity {
         setTitle(R.string.submit_review);
         setContentView(R.layout.activity_write_review);
 
-        editTextMovieTitle = findViewById(R.id.editTextMovieTitle);
+        spinnerMovieTitle = findViewById(R.id.spinnerMovieTitle);
         editTextWriteReview = findViewById(R.id.editTextWriteReview);
-        spinnerMovieGenre = findViewById(R.id.spinnerMovieGenre);
         ratingBarRating = findViewById(R.id.ratingBarRating);
         checkBoxContainSpoilers = findViewById(R.id.checkBoxContainSpoilers);
         radioGroupRecommends = findViewById(R.id.radioGroupRecommends);
+
+        populateMoviesSpinner();
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null) {
+            requestCode = bundle.getInt(Constants.KEY_REVIEW, 0);
+
+            if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
+                setTitle(getString(R.string.write_review));
+            } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW){
+                setTitle(getString(R.string.edit_review));
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);
+        super.onBackPressed();
     }
 
     public void clearForm(View view) {
-        editTextMovieTitle.setText(null);
         editTextWriteReview.setText(null);
 
         ratingBarRating.setRating(0F);
@@ -51,8 +82,10 @@ public final class WriteReviewActivity extends AppCompatActivity {
 
         final Review.Builder reviewBuilder = Review.newBuilder();
 
-        Review review = reviewBuilder.withTitle(editTextMovieTitle.getText().toString())
-                .withGenre((String) spinnerMovieGenre.getSelectedItem())
+        Movie selectedMovie = (Movie) spinnerMovieTitle.getSelectedItem();
+
+        Review review = reviewBuilder.withTitle(selectedMovie.getName())
+                .withGenre(selectedMovie.getCategory().getName())
                 .withRating(ratingBarRating.getRating())
                 .withReview(editTextWriteReview.getText().toString())
                 .hasSpoilers(checkBoxContainSpoilers.isChecked())
@@ -63,28 +96,13 @@ public final class WriteReviewActivity extends AppCompatActivity {
             return;
         }
 
-        String successMessage = "";
-
-        successMessage += getString(R.string.movie_title) + ": " + review.getTitle() + "\n";
-        successMessage += getString(R.string.movie_genre) + ": " + review.getGenre() + "\n";
-        successMessage += getString(R.string.rating) + ": " + review.getRating() + "\n";
-        successMessage += getString(R.string.review) + ": " + review.getReview() + "\n";
-        successMessage += getString(R.string.has_spoilers) + ": " + (review.hasSpoilers() ? getString(R.string.yes) : getString(R.string.no)) + "\n";
-        successMessage += getString(R.string.recommends_movie) + " "
-                + (review.getRecommends() == R.id.radioButtonRecommendsYes
-                ? getString(R.string.yes)
-                : getString(R.string.no)) + "\n";
-
-        Toast.makeText(this, successMessage, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent();
+        intent.putExtra(Constants.REVIEW, review);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     private boolean validateForm(Review review) {
-        if (review.getTitle() == null || review.getTitle().trim().isEmpty()) {
-            showValidationErrorMessage(getString(R.string.movie_title));
-            editTextMovieTitle.requestFocus();
-            return false;
-        }
-
         if (review.getRating() == 0F) {
             showValidationErrorMessage(getString(R.string.rating));
             ratingBarRating.requestFocus();
@@ -108,5 +126,59 @@ public final class WriteReviewActivity extends AppCompatActivity {
 
     private void showValidationErrorMessage(String fieldName) {
         Toast.makeText(this, getString(R.string.field_can_not_be_empty) + "\n- " + fieldName, Toast.LENGTH_LONG).show();
+    }
+
+    private void populateMoviesSpinner() {
+        final String[] arrayName = getResources().getStringArray(R.array.popular_movies_names);
+        final TypedArray arrayImages = getResources().obtainTypedArray(R.array.popular_movies_images);
+        final int[] arrayYear = getResources().getIntArray(R.array.popular_movies_year);
+        final String[] arrayDescription = getResources().getStringArray(R.array.popular_movies_descriptions);
+        final int[] arrayDuration = getResources().getIntArray(R.array.popular_movies_duration);
+        final String[] arrayGenres = getResources().getStringArray(R.array.popular_movies_genres);
+
+        final ArrayList<Movie> movies = new ArrayList<>();
+
+        for (int i = 0; i < arrayName.length; i++) {
+            movies.add(createNewMovie(
+                    arrayName[i],
+                    arrayImages.getDrawable(i),
+                    arrayYear[i],
+                    arrayDescription[i],
+                    arrayDuration[i],
+                    arrayGenres[i]
+            ));
+        }
+
+        MovieListAdapter adapter = new MovieListAdapter(
+                this,
+                movies
+        );
+
+        spinnerMovieTitle.setAdapter(adapter);
+    }
+
+    private Movie createNewMovie(final String name,
+                                 final Drawable image,
+                                 final int year,
+                                 final String description,
+                                 final int duration,
+                                 final String genreName
+    ) {
+        final Movie.Builder movieBuilder = Movie.newBuilder();
+
+        return movieBuilder.withName(name)
+                .withImage(image)
+                .withYear(year)
+                .withDescription(description)
+                .withDuration(duration)
+                .withCategory(createNewCategory(genreName))
+                .build();
+    }
+
+    private Category createNewCategory(String genreName) {
+        final Category.Builder categoryBuilder = Category.newBuilder();
+
+        return categoryBuilder.withName(genreName)
+                .build();
     }
 }

@@ -6,7 +6,9 @@
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_movies_list.xml" value="0.25234375" />
+        <entry key="app/src/main/res/layout/activity_write_review.xml" value="0.25234375" />
         <entry key="app/src/main/res/layout/list_view_movies.xml" value="0.75" />
+        <entry key="app/src/main/res/layout/list_view_reviews.xml" value="0.25234375" />
       </map>
     </option>
   </component>

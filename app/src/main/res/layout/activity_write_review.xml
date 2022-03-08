@@ -7,6 +7,8 @@
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".activity.WriteReviewActivity">
@@ -22,17 +24,17 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextMovieTitle"
+        <Spinner
+            android:id="@+id/spinnerMovieTitle"
             android:layout_width="380dp"
-            android:layout_height="48dp"
+            android:layout_height="120dp"
             android:layout_marginTop="8dp"
+            android:autofillHints=""
             android:ems="10"
             android:inputType="textPersonName"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textViewMovieTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMovieTitle"
-            android:autofillHints="" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewMovieTitle" />
 
         <CheckBox
             android:id="@+id/checkBoxContainSpoilers"
@@ -71,8 +73,8 @@
             android:layout_marginTop="20dp"
             android:text="@string/rating"
             android:textColor="#757575"
-            app:layout_constraintStart_toStartOf="@+id/spinnerMovieGenre"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerMovieGenre" />
+            app:layout_constraintStart_toStartOf="@+id/spinnerMovieTitle"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerMovieTitle" />
 
         <RatingBar
             android:id="@+id/ratingBarRating"
@@ -115,24 +117,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no" />
         </RadioGroup>
-
-        <Spinner
-            android:id="@+id/spinnerMovieGenre"
-            android:layout_width="380dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:entries="@array/movie_genres"
-            app:layout_constraintStart_toStartOf="@+id/textViewMovieGenre"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMovieGenre" />
-
-        <TextView
-            android:id="@+id/textViewMovieGenre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/movie_genre"
-            app:layout_constraintStart_toStartOf="@+id/editTextMovieTitle"
-            app:layout_constraintTop_toBottomOf="@+id/editTextMovieTitle" />
 
         <Button
             android:id="@+id/buttonSubmitReview"
