@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -31,6 +32,7 @@ public final class WriteReviewActivity extends AppCompatActivity {
     private RatingBar ratingBarRating;
     private CheckBox checkBoxContainSpoilers;
     private RadioGroup radioGroupRecommends;
+    private RadioButton radioButtonRecommendsYes, radioButtonRecommendsNo;
     private int requestCode;
 
     @Override
@@ -44,6 +46,8 @@ public final class WriteReviewActivity extends AppCompatActivity {
         ratingBarRating = findViewById(R.id.ratingBarRating);
         checkBoxContainSpoilers = findViewById(R.id.checkBoxContainSpoilers);
         radioGroupRecommends = findViewById(R.id.radioGroupRecommends);
+        radioButtonRecommendsYes = findViewById(R.id.radioButtonRecommendsYes);
+        radioButtonRecommendsNo = findViewById(R.id.radioButtonRecommendsNo);
 
         populateMoviesSpinner();
 
@@ -51,12 +55,22 @@ public final class WriteReviewActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
-            requestCode = bundle.getInt(Constants.KEY_REVIEW, 0);
+            requestCode = bundle.getInt(Constants.REQUEST_CODE, 0);
 
             if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
                 setTitle(getString(R.string.write_review));
-            } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW){
+            } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW) {
                 setTitle(getString(R.string.edit_review));
+                Review review = (Review) bundle.getSerializable(Constants.REVIEW);
+                spinnerMovieTitle.setSelection(getMovieIndex(review.getTitle()));
+                editTextWriteReview.setText(review.getReview());
+                ratingBarRating.setRating(review.getRating());
+                checkBoxContainSpoilers.setChecked(review.hasSpoilers());
+                if (review.getRecommends() == 0) {
+                    radioButtonRecommendsNo.setChecked(true);
+                } else {
+                    radioButtonRecommendsYes.setChecked(true);
+                }
             }
         }
     }
@@ -66,6 +80,19 @@ public final class WriteReviewActivity extends AppCompatActivity {
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         super.onBackPressed();
+    }
+
+    public static void addReview(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, WriteReviewActivity.class);
+        intent.putExtra(Constants.REQUEST_CODE, Constants.REQUEST_CODE_ADD_REVIEW);
+        activity.startActivityForResult(intent, Constants.REQUEST_CODE_ADD_REVIEW);
+    }
+
+    public static void editReview(AppCompatActivity activity, Review review) {
+        Intent intent = new Intent(activity, WriteReviewActivity.class);
+        intent.putExtra(Constants.REQUEST_CODE, Constants.REQUEST_CODE_EDIT_REVIEW);
+        intent.putExtra(Constants.REVIEW, review);
+        activity.startActivityForResult(intent, Constants.REQUEST_CODE_EDIT_REVIEW);
     }
 
     public void clearForm(View view) {
@@ -89,7 +116,9 @@ public final class WriteReviewActivity extends AppCompatActivity {
                 .withRating(ratingBarRating.getRating())
                 .withReview(editTextWriteReview.getText().toString())
                 .hasSpoilers(checkBoxContainSpoilers.isChecked())
-                .withRecommends(radioGroupRecommends.getCheckedRadioButtonId())
+                .withRecommends(radioGroupRecommends.getCheckedRadioButtonId() == R.id.radioButtonRecommendsYes
+                        ? 1
+                        : 0)
                 .build();
 
         if (!validateForm(review)) {
@@ -180,5 +209,16 @@ public final class WriteReviewActivity extends AppCompatActivity {
 
         return categoryBuilder.withName(genreName)
                 .build();
+    }
+
+    private int getMovieIndex(String movieTitle) {
+        for (int i = 0; i < spinnerMovieTitle.getCount(); i++) {
+            Movie movie = (Movie) spinnerMovieTitle.getItemAtPosition(i);
+            if (movie.getName().equals(movieTitle)) {
+                return i;
+            }
+        }
+
+        return 0;
     }
 }

@@ -1,9 +1,8 @@
 package com.vitor.controlefilmes.activity;
 
-import static com.vitor.controlefilmes.service.Constants.REQUEST_CODE_ADD_REVIEW;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Pair;
 
 import android.app.Activity;
@@ -30,6 +29,7 @@ public final class MoviesListActivity extends AppCompatActivity {
     private ArrayList<Pair<Review, Drawable>> reviewsList;
     private Map<String, Drawable> movieImages;
     private ListView listReviews;
+    private int selectedPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public final class MoviesListActivity extends AppCompatActivity {
         listReviews = findViewById(R.id.listReviews);
 
         listReviews.setOnItemClickListener((adapterView, view, position, id) -> {
-            Review review = (Review) listReviews.getItemAtPosition(position);
-            Toast.makeText(this, review.getTitle(), Toast.LENGTH_LONG).show();
+            selectedPosition = position;
+            editReview();
         });
 
         loadMovieImages();
@@ -49,22 +49,28 @@ public final class MoviesListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(this, R.string.action_canceled, Toast.LENGTH_SHORT).show();
-        } else if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW && resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 Review review = (Review) bundle.getSerializable(Constants.REVIEW);
-                reviewsList.add(Pair.create(review, movieImages.get(review.getTitle())));
-                reviewsAdapter.notifyDataSetChanged();
+                if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
+                    reviewsList.add(Pair.create(review, movieImages.get(review.getTitle())));
+                    reviewsAdapter.notifyDataSetChanged();
+                } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW) {
+                    reviewsList.remove(selectedPosition);
+                    reviewsList.add(selectedPosition, Pair.create(review, movieImages.get(review.getTitle())));
+                    reviewsAdapter.notifyDataSetChanged();
+                }
             }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(this, R.string.action_canceled, Toast.LENGTH_SHORT).show();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void addReviewFromButton(View view) {
-        showReviewActivity();
+        WriteReviewActivity.addReview(this);
     }
 
     public void showAboutActivity(View view) {
@@ -72,9 +78,8 @@ public final class MoviesListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void showReviewActivity() {
-        Intent intent = new Intent(this, WriteReviewActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_ADD_REVIEW);
+    private void editReview() {
+        WriteReviewActivity.editReview(this, reviewsList.get(selectedPosition).first);
     }
 
     private void populateReviewsList() {

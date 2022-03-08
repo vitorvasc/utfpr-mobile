@@ -4,6 +4,7 @@ public final class Constants {
 
     public static final String WEBSITE_UTFPR = "https://www.utfpr.edu.br";
 
+    public static final String REQUEST_CODE = "REQUEST_CODE";
     public static final String REVIEW = "REVIEW";
     public static final String KEY_REVIEW = "REVIEW";
 
