@@ -1,6 +1,7 @@
 package com.vitor.controlefilmes.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -10,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -43,6 +43,11 @@ public final class WriteReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.submit_review);
         setContentView(R.layout.activity_write_review);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         spinnerMovieTitle = findViewById(R.id.spinnerMovieTitle);
         editTextWriteReview = findViewById(R.id.editTextWriteReview);
@@ -93,7 +98,7 @@ public final class WriteReviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.menuItemWriteReviewAdd:
                 submitForm();
                 return true;
@@ -103,6 +108,9 @@ public final class WriteReviewActivity extends AppCompatActivity {
                 } else {
                     clearForm();
                 }
+                return true;
+            case android.R.id.home:
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
