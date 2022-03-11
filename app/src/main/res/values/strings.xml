@@ -8,6 +8,7 @@
     <string name="has_spoilers">Análise contém spoilers</string>
     <string name="write_review">Escreva uma análise</string>
     <string name="edit_review">Edite a análise</string>
+    <string name="delete_review">Excluir análise</string>
     <string name="review">Análise</string>
     <string name="rating">Nota</string>
     <string name="recommends_movie">Recomenda para outra pessoa?</string>
@@ -44,6 +45,7 @@
     <string name="pulp_fiction">"Pulp Fiction"</string>
     <string name="fight_club">"Fight Club"</string>
     <string name="about">Informações</string>
+    <string name="add_review">Adicionar Review</string>
     <string name="action_not_possible">Não foi possível realizar esta ação.</string>
     <string name="action_canceled">A ação foi cancelada!</string>
 </resources>

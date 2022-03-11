@@ -1,5 +1,6 @@
 package com.vitor.controlefilmes.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -7,6 +8,8 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -82,6 +85,30 @@ public final class WriteReviewActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_write_review, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menuItemWriteReviewAdd:
+                submitForm();
+                return true;
+            case R.id.menuItemWriteReviewClear:
+                if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW) {
+                    finish();
+                } else {
+                    clearForm();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public static void addReview(AppCompatActivity activity) {
         Intent intent = new Intent(activity, WriteReviewActivity.class);
         intent.putExtra(Constants.REQUEST_CODE, Constants.REQUEST_CODE_ADD_REVIEW);
@@ -95,7 +122,7 @@ public final class WriteReviewActivity extends AppCompatActivity {
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_EDIT_REVIEW);
     }
 
-    public void clearForm(View view) {
+    private void clearForm() {
         editTextWriteReview.setText(null);
 
         ratingBarRating.setRating(0F);
@@ -105,7 +132,7 @@ public final class WriteReviewActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.form_cleared_successfully, Toast.LENGTH_LONG).show();
     }
 
-    public void submitForm(View view) {
+    private void submitForm() {
 
         final Review.Builder reviewBuilder = Review.newBuilder();
 
