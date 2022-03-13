@@ -2,10 +2,15 @@ package com.vitor.controlefilmes.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Pair;
 
 import android.app.Activity;
@@ -26,6 +31,8 @@ import com.vitor.controlefilmes.dto.Review;
 import com.vitor.controlefilmes.service.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +43,7 @@ public final class ReviewListActivity extends AppCompatActivity {
     private Map<String, Drawable> movieImages;
     private ListView listViewReviews;
 
+    private int orderBy = Constants.ORDER_BY_RATING;
     private int selectedPosition = -1;
     private androidx.appcompat.view.ActionMode actionMode;
     private View selectedView;
@@ -110,6 +118,7 @@ public final class ReviewListActivity extends AppCompatActivity {
 
         loadMovieImages();
         populateReviewsList();
+        loadSharedPreferences();
     }
 
     @Override
@@ -120,11 +129,18 @@ public final class ReviewListActivity extends AppCompatActivity {
                 Review review = (Review) bundle.getSerializable(Constants.REVIEW);
                 if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
                     reviewsList.add(Pair.create(review, movieImages.get(review.getTitle())));
+                    orderReviewList();
                     reviewsAdapter.notifyDataSetChanged();
                 } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW) {
                     reviewsList.remove(selectedPosition);
                     reviewsList.add(selectedPosition, Pair.create(review, movieImages.get(review.getTitle())));
+                    orderReviewList();
                     reviewsAdapter.notifyDataSetChanged();
+                } else if (requestCode == Constants.REQUEST_CODE_RELOAD_PREFERENCES) {
+                    loadSharedPreferences();
+                    orderReviewList();
+                    reviewsAdapter.notifyDataSetChanged();
+                    Toast.makeText(this, "ordered", Toast.LENGTH_SHORT).show();
                 }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -143,7 +159,7 @@ public final class ReviewListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.menuItemAdd:
                 WriteReviewActivity.addReview(this);
                 return true;
@@ -152,8 +168,7 @@ public final class ReviewListActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menuItemSettings:
-                intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                SettingsActivity.loadSettings(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -167,6 +182,7 @@ public final class ReviewListActivity extends AppCompatActivity {
     private void deleteReview() {
         reviewsList.remove(selectedPosition);
         reviewsAdapter.notifyDataSetChanged();
+        orderReviewList();
     }
 
     private void populateReviewsList() {
@@ -184,6 +200,22 @@ public final class ReviewListActivity extends AppCompatActivity {
         movieImages = new HashMap<>();
         for (int i = 0; i < arrayName.length; i++) {
             movieImages.put(arrayName[i], arrayImages.getDrawable(i));
+        }
+    }
+
+    private void loadSharedPreferences() {
+        SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
+        orderBy = preferences.getInt(Constants.KEY_SETTINGS_ORDER_BY, orderBy);
+    }
+
+    private void orderReviewList() {
+        switch (orderBy) {
+            case Constants.ORDER_BY_RATING:
+                Collections.sort(reviewsList, (o1, o2) -> Float.compare(o2.first.getRating(), o1.first.getRating()));
+                break;
+            case Constants.ORDER_BY_MOVIE_NAME:
+                Collections.sort(reviewsList, (o1, o2) -> o1.first.getTitle().compareTo(o2.first.getTitle()));
+                break;
         }
     }
 }

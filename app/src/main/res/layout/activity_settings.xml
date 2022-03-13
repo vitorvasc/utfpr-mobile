@@ -26,12 +26,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewOrderBy">
 
         <RadioButton
-            android:id="@+id/radioButtonOrderDefault"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/order_added_default" />
-
-        <RadioButton
             android:id="@+id/radioButtonOrderRating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
