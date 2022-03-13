@@ -20,7 +20,7 @@ import com.vitor.controlefilmes.service.Constants;
 public class SettingsActivity extends AppCompatActivity {
 
     private RadioGroup radioGroupOrderBy;
-    private RadioButton radioButtonOrderDefault, radioButtonOrderRating, radioButtonOrderMovieName;
+    private RadioButton radioButtonOrderRating, radioButtonOrderMovieName;
 
     private int orderBy = Constants.ORDER_BY_RATING;
 

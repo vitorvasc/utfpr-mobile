@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ControleFilmes</string>
+    <string name="app_description">Este aplicativo auxilia o usuário a guardar uma avaliação e opinião sobre os filmes e séries que já assistiu.</string>
+    <string name="movie_title">Título do filme</string>
+    <string name="has_spoilers">Análise contém spoilers</string>
+    <string name="write_review">Escreva uma análise</string>
+    <string name="edit_review">Edite a análise</string>
+    <string name="delete_review">Excluir análise</string>
+    <string name="review">Análise</string>
+    <string name="rating">Nota</string>
+    <string name="recommends_movie">Recomenda para outra pessoa?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="movie_genre">Gênero do filme</string>
+    <string name="action">Ação</string>
+    <string name="animation">Animação</string>
+    <string name="adventure">Aventura</string>
+    <string name="comedy">Comédia</string>
+    <string name="drama">Drama</string>
+    <string name="documentary">Documentário</string>
+    <string name="sci_fi">Ficção científica</string>
+    <string name="horror">Terror</string>
+    <string name="thriller">Suspense</string>
+    <string name="submit_review">Enviar análise</string>
+    <string name="save_form">Salvar</string>
+    <string name="save_changes">Salvar alterações</string>
+    <string name="clear_form">Limpar</string>
+    <string name="form_cleared_successfully">Formulário limpo com sucesso!</string>
+    <string name="field_can_not_be_empty">O seguinte campo não pode estar vazio:</string>
+    <string name="name">Nome:</string>
+    <string name="year">Ano:</string>
+    <string name="duration">Duração:</string>
+    <string name="genre">Gênero:</string>
+    <string name="minutes">minutos</string>
+    <string name="about">Informações</string>
+    <string name="add_review">Adicionar Review</string>
+    <string name="action_not_possible">Não foi possível realizar esta ação.</string>
+    <string name="action_canceled">A ação foi cancelada!</string>
+    <string name="order_list_by">Ordenar lista por:</string>
+    <string name="order_rating">Nota (maior para menor)</string>
+    <string name="order_movie_name">Nome do filme (A - Z)</string>
+    <string name="settings">Configurações</string>
+    <string name="value_changed_successfully">Valor alterado com sucesso!</string>
+</resources>

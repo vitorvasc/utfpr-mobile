@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.vitor.controlefilmes.R;
-import com.vitor.controlefilmes.service.Constants;
 import com.vitor.controlefilmes.service.HandleSystemIntents;
 
 public final class AboutActivity extends AppCompatActivity {

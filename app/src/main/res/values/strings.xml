@@ -1,58 +1,57 @@
 <resources>
     <string name="app_name">ControleFilmes</string>
-    <string name="app_owner_name">Vitor Vasconcellos dos Santos</string>
-    <string name="app_owner_email">contato@vitorvasconcellos.com.br</string>
-    <string name="app_description">"Este aplicativo auxilia o usuário a guardar uma avaliação e opinião sobre os filmes e séries que já assistiu."</string>
-    <string name="website_utfpr">www.utfpr.edu.br</string>
-    <string name="movie_title">Título do filme / série</string>
-    <string name="has_spoilers">Análise contém spoilers</string>
-    <string name="write_review">Escreva uma análise</string>
-    <string name="edit_review">Edite a análise</string>
-    <string name="delete_review">Excluir análise</string>
-    <string name="review">Análise</string>
-    <string name="rating">Nota</string>
-    <string name="recommends_movie">Recomenda para outra pessoa?</string>
-    <string name="yes">Sim</string>
-    <string name="no">Não</string>
-    <string name="movie_genre">Gênero do filme / série</string>
-    <string name="action">Ação</string>
-    <string name="animation">Animação</string>
-    <string name="adventure">Aventura</string>
-    <string name="comedy">Comédia</string>
+    <string name="app_owner_name" translatable="false">Vitor Vasconcellos dos Santos</string>
+    <string name="app_owner_email" translatable="false">contato@vitorvasconcellos.com.br</string>
+    <string name="app_description">This application helps the user to save a review and opinion about the movies and series they have already watched.</string>
+    <string name="website_utfpr" translatable="false">www.utfpr.edu.br</string>
+    <string name="movie_title">Movie title</string>
+    <string name="has_spoilers">Review contains spoilers</string>
+    <string name="write_review">Write review</string>
+    <string name="edit_review">Edit review</string>
+    <string name="delete_review">Delete review</string>
+    <string name="review">Review</string>
+    <string name="rating">Rating</string>
+    <string name="recommends_movie">Recommend it to someone else?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="movie_genre">Movie genre</string>
+    <string name="action">Action</string>
+    <string name="animation">Animation</string>
+    <string name="adventure">Adventure</string>
+    <string name="comedy">Comedy</string>
     <string name="drama">Drama</string>
-    <string name="documentary">Documentário</string>
-    <string name="sci_fi">Ficção científica</string>
-    <string name="horror">Terror</string>
-    <string name="thriller">Suspense</string>
-    <string name="submit_review">Enviar análise</string>
-    <string name="save_form">Salvar</string>
-    <string name="save_changes">Salvar alterações</string>
-    <string name="clear_form">Limpar</string>
-    <string name="form_cleared_successfully">Formulário limpo com sucesso!</string>
-    <string name="field_can_not_be_empty">O seguinte campo não pode estar vazio:</string>
-    <string name="name">Nome:</string>
-    <string name="year">Ano:</string>
-    <string name="duration">Duração:</string>
-    <string name="genre">Gênero:</string>
-    <string name="minutes">minutos</string>
-    <string name="spider_man_no_way_home">"Spider-Man - No Way Home"</string>
-    <string name="encanto">"Encanto"</string>
-    <string name="the_kings_man">"The King's Man"</string>
-    <string name="x_men_origins_wolverine">"X-Men Origins: Wolverine"</string>
-    <string name="the_amazing_spider_man">"The Amazing Spider-Man"</string>
-    <string name="the_incredible_hulk">"The Incredible Hulk"</string>
-    <string name="taxi_driver">"Taxi Driver"</string>
-    <string name="scarface">"Scarface"</string>
-    <string name="pulp_fiction">"Pulp Fiction"</string>
-    <string name="fight_club">"Fight Club"</string>
-    <string name="about">Informações</string>
-    <string name="add_review">Adicionar Review</string>
-    <string name="action_not_possible">Não foi possível realizar esta ação.</string>
-    <string name="action_canceled">A ação foi cancelada!</string>
-    <string name="order_list_by">Ordenar lista por:</string>
-    <string name="order_added_default">Ordem de inserção (padrão)</string>
-    <string name="order_rating">Nota (maior para menor)</string>
-    <string name="order_movie_name">Nome do filme (A - Z)</string>
-    <string name="settings">Configurações</string>
-    <string name="value_changed_successfully">Valor alterado com sucesso!</string>
+    <string name="documentary">Documentary</string>
+    <string name="sci_fi">Sci-Fi</string>
+    <string name="horror">Horror</string>
+    <string name="thriller">Thriller</string>
+    <string name="submit_review">Submit review</string>
+    <string name="save_form">Save</string>
+    <string name="save_changes">Save changes</string>
+    <string name="clear_form">Clear</string>
+    <string name="form_cleared_successfully">Fields have been successfully cleared!</string>
+    <string name="field_can_not_be_empty">The following field cannot be empty:</string>
+    <string name="name">Name:</string>
+    <string name="year">Year:</string>
+    <string name="duration">Duration:</string>
+    <string name="genre">Genre:</string>
+    <string name="minutes">minutes</string>
+    <string name="spider_man_no_way_home" translatable="false">"Spider-Man - No Way Home"</string>
+    <string name="encanto" translatable="false">"Encanto"</string>
+    <string name="the_kings_man" translatable="false">"The King's Man"</string>
+    <string name="x_men_origins_wolverine" translatable="false">"X-Men Origins: Wolverine"</string>
+    <string name="the_amazing_spider_man" translatable="false">"The Amazing Spider-Man"</string>
+    <string name="the_incredible_hulk" translatable="false">"The Incredible Hulk"</string>
+    <string name="taxi_driver" translatable="false">"Taxi Driver"</string>
+    <string name="scarface" translatable="false">"Scarface"</string>
+    <string name="pulp_fiction" translatable="false">"Pulp Fiction"</string>
+    <string name="fight_club" translatable="false">"Fight Club"</string>
+    <string name="about">Information</string>
+    <string name="add_review">Add Review</string>
+    <string name="action_not_possible">This action couldn\'t be completed.</string>
+    <string name="action_canceled">This action was cancelled!</string>
+    <string name="order_list_by">Order list by:</string>
+    <string name="order_rating">Rating (higher to lower)</string>
+    <string name="order_movie_name">Movie name (A - Z)</string>
+    <string name="settings">Settings</string>
+    <string name="value_changed_successfully">Value has been successfully changed!</string>
 </resources>

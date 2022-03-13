@@ -2,15 +2,12 @@ package com.vitor.controlefilmes.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
-import android.provider.Settings;
 import android.util.Pair;
 
 import android.app.Activity;
@@ -32,7 +29,6 @@ import com.vitor.controlefilmes.service.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -140,7 +136,6 @@ public final class ReviewListActivity extends AppCompatActivity {
                     loadSharedPreferences();
                     orderReviewList();
                     reviewsAdapter.notifyDataSetChanged();
-                    Toast.makeText(this, "ordered", Toast.LENGTH_SHORT).show();
                 }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
