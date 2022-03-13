@@ -18,22 +18,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.AboutActivity"
             android:exported="true"
             android:parentActivityName=".activity.ReviewListActivity">
-            <!-- Support 4.0 and lower-->
+
+            <!-- Support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ReviewListActivity" />
+        </activity>
+        <activity
+            android:name=".activity.WriteReviewActivity"
+            android:exported="true"
+            android:parentActivityName=".activity.ReviewListActivity">
+
+            <!-- Support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ReviewListActivity" />
         </activity>
 
         <activity
-            android:name=".activity.WriteReviewActivity"
-            android:exported="true"
+            android:name=".activity.SettingsActivity"
+            android:exported="false"
             android:parentActivityName=".activity.ReviewListActivity">
-            <!-- Support 4.0 and lower-->
+
+            <!-- Support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ReviewListActivity" />

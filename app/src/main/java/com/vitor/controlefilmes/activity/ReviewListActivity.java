@@ -142,12 +142,17 @@ public final class ReviewListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent;
         switch(item.getItemId()) {
             case R.id.menuItemAdd:
                 WriteReviewActivity.addReview(this);
                 return true;
             case R.id.menuItemAbout:
-                Intent intent = new Intent(this, AboutActivity.class);
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menuItemSettings:
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             default:

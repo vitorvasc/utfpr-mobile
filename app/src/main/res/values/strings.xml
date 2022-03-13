@@ -26,6 +26,7 @@
     <string name="thriller">Suspense</string>
     <string name="submit_review">Enviar análise</string>
     <string name="save_form">Salvar</string>
+    <string name="save_changes">Salvar alterações</string>
     <string name="clear_form">Limpar</string>
     <string name="form_cleared_successfully">Formulário limpo com sucesso!</string>
     <string name="field_can_not_be_empty">O seguinte campo não pode estar vazio:</string>
@@ -48,4 +49,10 @@
     <string name="add_review">Adicionar Review</string>
     <string name="action_not_possible">Não foi possível realizar esta ação.</string>
     <string name="action_canceled">A ação foi cancelada!</string>
+    <string name="order_list_by">Ordenar lista por:</string>
+    <string name="order_added_default">Ordem de inserção (padrão)</string>
+    <string name="order_rating">Nota (maior para menor)</string>
+    <string name="order_movie_name">Nome do filme (A - Z)</string>
+    <string name="settings">Configurações</string>
+    <string name="value_changed_successfully">Valor alterado com sucesso!</string>
 </resources>
