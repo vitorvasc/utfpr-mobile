@@ -1,9 +1,10 @@
-package com.vitor.controlefilmes.dto;
+package com.vitor.controlefilmes.entity;
 
 import java.io.Serializable;
 
 public final class Review implements Serializable {
 
+    private final long id;
     private final String title;
     private final String genre;
     private final float rating;
@@ -12,12 +13,17 @@ public final class Review implements Serializable {
     private final int recommends;
 
     public Review(Builder builder) {
+        this.id = builder.id;
         this.title = builder.title;
         this.genre = builder.genre;
         this.rating = builder.rating;
         this.review = builder.review;
         this.hasSpoilers = builder.hasSpoilers;
         this.recommends = builder.recommends;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -57,6 +63,7 @@ public final class Review implements Serializable {
     }
 
     public static final class Builder {
+        private long id;
         private String title;
         private String genre;
         private float rating;
@@ -65,6 +72,11 @@ public final class Review implements Serializable {
         private int recommends;
 
         private Builder() {
+        }
+
+        public Builder withId(long id) {
+            this.id = id;
+            return this;
         }
 
         public Builder withTitle(String title) {

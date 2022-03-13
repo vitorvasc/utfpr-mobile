@@ -18,4 +18,13 @@ public final class Constants {
 
     public static final int ORDER_BY_RATING = R.id.radioButtonOrderRating;
     public static final int ORDER_BY_MOVIE_NAME = R.id.radioButtonOrderMovieName;
+
+    public static final String REVIEWS_TABLE = "REVIEWS";
+    public static final String REVIEWS_COLUMN_ID = "ID";
+    public static final String REVIEWS_COLUMN_TITLE = "TITLE";
+    public static final String REVIEWS_COLUMN_GENRE = "GENRE";
+    public static final String REVIEWS_COLUMN_RATING = "RATING";
+    public static final String REVIEWS_COLUMN_REVIEW = "REVIEW";
+    public static final String REVIEWS_COLUMN_HAS_SPOILERS = "HAS_SPOILERS";
+    public static final String REVIEWS_COLUMN_RECOMMENDS = "RECOMMENDS";
 }

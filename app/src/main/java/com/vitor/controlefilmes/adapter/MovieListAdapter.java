@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vitor.controlefilmes.R;
-import com.vitor.controlefilmes.entity.Movie;
+import com.vitor.controlefilmes.dto.Movie;
 
 import java.util.List;
 

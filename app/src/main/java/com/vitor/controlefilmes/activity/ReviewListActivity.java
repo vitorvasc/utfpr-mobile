@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Pair;
@@ -24,7 +26,8 @@ import android.widget.Toast;
 
 import com.vitor.controlefilmes.R;
 import com.vitor.controlefilmes.adapter.ReviewListAdapter;
-import com.vitor.controlefilmes.dto.Review;
+import com.vitor.controlefilmes.entity.Review;
+import com.vitor.controlefilmes.persistance.ReviewsDatabase;
 import com.vitor.controlefilmes.service.Constants;
 
 import java.util.ArrayList;
@@ -91,6 +94,9 @@ public final class ReviewListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_list);
 
+        ReviewsDatabase database = ReviewsDatabase.getInstance(this);
+        database.reviewDAO.load();
+
         listViewReviews = findViewById(R.id.listReviews);
         listViewReviews.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
@@ -120,23 +126,18 @@ public final class ReviewListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            if (bundle != null) {
-                Review review = (Review) bundle.getSerializable(Constants.REVIEW);
-                if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
-                    reviewsList.add(Pair.create(review, movieImages.get(review.getTitle())));
-                    orderReviewList();
-                    reviewsAdapter.notifyDataSetChanged();
-                } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW) {
-                    reviewsList.remove(selectedPosition);
-                    reviewsList.add(selectedPosition, Pair.create(review, movieImages.get(review.getTitle())));
-                    orderReviewList();
-                    reviewsAdapter.notifyDataSetChanged();
-                } else if (requestCode == Constants.REQUEST_CODE_RELOAD_PREFERENCES) {
-                    loadSharedPreferences();
-                    orderReviewList();
-                    reviewsAdapter.notifyDataSetChanged();
-                }
+            if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
+                populateReviewsList();
+                orderReviewList();
+                reviewsAdapter.notifyDataSetChanged();
+            } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW) {
+                populateReviewsList();
+                orderReviewList();
+                reviewsAdapter.notifyDataSetChanged();
+            } else if (requestCode == Constants.REQUEST_CODE_RELOAD_PREFERENCES) {
+                loadSharedPreferences();
+                orderReviewList();
+                reviewsAdapter.notifyDataSetChanged();
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
             Toast.makeText(this, R.string.action_canceled, Toast.LENGTH_SHORT).show();
@@ -175,13 +176,43 @@ public final class ReviewListActivity extends AppCompatActivity {
     }
 
     private void deleteReview() {
-        reviewsList.remove(selectedPosition);
-        reviewsAdapter.notifyDataSetChanged();
-        orderReviewList();
+        Context context = this;
+        DialogInterface.OnClickListener listener = (dialogInterface, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    Review selectedReview = reviewsList.get(selectedPosition).first;
+                    ReviewsDatabase database = ReviewsDatabase.getInstance(context);
+                    database.reviewDAO.delete(selectedReview);
+                    reviewsList.remove(selectedPosition);
+                    reviewsAdapter.notifyDataSetChanged();
+                    orderReviewList();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.confirm_action);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        builder.setMessage(R.string.entry_delete_confirmation);
+
+        builder.setPositiveButton(getString(R.string.yes), listener);
+        builder.setNegativeButton(getString(R.string.no), listener);
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void populateReviewsList() {
+        ReviewsDatabase database = ReviewsDatabase.getInstance(this);
         reviewsList = new ArrayList<>();
+
+        for (Review r : database.reviewDAO.reviewList) {
+            reviewsList.add(Pair.create(r, movieImages.get(r.getTitle())));
+        }
+
         reviewsAdapter = new ReviewListAdapter(
                 this,
                 reviewsList

@@ -21,9 +21,10 @@ import android.widget.Toast;
 
 import com.vitor.controlefilmes.R;
 import com.vitor.controlefilmes.adapter.MovieListAdapter;
-import com.vitor.controlefilmes.dto.Review;
-import com.vitor.controlefilmes.entity.Category;
-import com.vitor.controlefilmes.entity.Movie;
+import com.vitor.controlefilmes.entity.Review;
+import com.vitor.controlefilmes.dto.Category;
+import com.vitor.controlefilmes.dto.Movie;
+import com.vitor.controlefilmes.persistance.ReviewsDatabase;
 import com.vitor.controlefilmes.service.Constants;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public final class WriteReviewActivity extends AppCompatActivity {
     private RadioGroup radioGroupRecommends;
     private RadioButton radioButtonRecommendsYes, radioButtonRecommendsNo;
     private int requestCode;
+    private long editId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public final class WriteReviewActivity extends AppCompatActivity {
             } else if (requestCode == Constants.REQUEST_CODE_EDIT_REVIEW) {
                 setTitle(getString(R.string.edit_review));
                 Review review = (Review) bundle.getSerializable(Constants.REVIEW);
+                editId = review.getId();
                 spinnerMovieTitle.setSelection(getMovieIndex(review.getTitle()));
                 editTextWriteReview.setText(review.getReview());
                 ratingBarRating.setRating(review.getRating());
@@ -146,7 +149,8 @@ public final class WriteReviewActivity extends AppCompatActivity {
 
         Movie selectedMovie = (Movie) spinnerMovieTitle.getSelectedItem();
 
-        Review review = reviewBuilder.withTitle(selectedMovie.getName())
+        Review review = reviewBuilder.withId(editId)
+                .withTitle(selectedMovie.getName())
                 .withGenre(selectedMovie.getCategory().getName())
                 .withRating(ratingBarRating.getRating())
                 .withReview(editTextWriteReview.getText().toString())
@@ -160,9 +164,14 @@ public final class WriteReviewActivity extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent();
-        intent.putExtra(Constants.REVIEW, review);
-        setResult(Activity.RESULT_OK, intent);
+        ReviewsDatabase database = ReviewsDatabase.getInstance(this);
+        if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
+            database.reviewDAO.insert(review);
+        } else {
+            database.reviewDAO.alter(review);
+        }
+
+        setResult(Activity.RESULT_OK);
         finish();
     }
 

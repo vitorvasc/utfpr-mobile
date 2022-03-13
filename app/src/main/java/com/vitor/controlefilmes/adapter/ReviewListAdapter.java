@@ -11,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vitor.controlefilmes.R;
-import com.vitor.controlefilmes.dto.Review;
+import com.vitor.controlefilmes.entity.Review;
 
 import java.util.List;
 
-public class ReviewListAdapter extends BaseAdapter {
+public final class ReviewListAdapter extends BaseAdapter {
 
     Context context;
     List<Pair<Review, Drawable>> reviewList;

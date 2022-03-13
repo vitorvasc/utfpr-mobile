@@ -42,4 +42,6 @@
     <string name="order_movie_name">Nome do filme (A - Z)</string>
     <string name="settings">Configurações</string>
     <string name="value_changed_successfully">Valor alterado com sucesso!</string>
+    <string name="confirm_action">Confirmar ação</string>
+    <string name="entry_delete_confirmation">Você tem certeza que deseja deletar este registro?</string>
 </resources>

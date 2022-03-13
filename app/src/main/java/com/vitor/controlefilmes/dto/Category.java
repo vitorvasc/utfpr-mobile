@@ -1,4 +1,4 @@
-package com.vitor.controlefilmes.entity;
+package com.vitor.controlefilmes.dto;
 
 public final class Category {
 

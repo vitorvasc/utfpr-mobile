@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.vitor.controlefilmes.R;
 import com.vitor.controlefilmes.service.Constants;
 
-public class SettingsActivity extends AppCompatActivity {
+public final class SettingsActivity extends AppCompatActivity {
 
     private RadioGroup radioGroupOrderBy;
     private RadioButton radioButtonOrderRating, radioButtonOrderMovieName;
