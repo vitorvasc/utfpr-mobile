@@ -1,16 +1,33 @@
 package com.vitor.controlefilmes.entity;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity
 public final class Review implements Serializable {
 
-    private final long id;
-    private final String title;
-    private final String genre;
-    private final float rating;
-    private final String review;
-    private final boolean hasSpoilers;
-    private final int recommends;
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    @NonNull
+    private String title;
+
+    @NonNull
+    private String genre;
+
+    private float rating;
+
+    @NonNull
+    private String review;
+    private boolean hasSpoilers;
+    private int recommends;
+
+    public Review() {
+    }
 
     public Review(Builder builder) {
         this.id = builder.id;
@@ -26,28 +43,64 @@ public final class Review implements Serializable {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @NonNull
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(@NonNull String title) {
+        this.title = title;
+    }
+
+    @NonNull
     public String getGenre() {
         return genre;
+    }
+
+    public void setGenre(@NonNull String genre) {
+        this.genre = genre;
     }
 
     public float getRating() {
         return rating;
     }
 
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    @NonNull
     public String getReview() {
         return review;
     }
 
+    public void setReview(@NonNull String review) {
+        this.review = review;
+    }
+
+    @Ignore
     public boolean hasSpoilers() {
         return hasSpoilers;
     }
 
+    public boolean isHasSpoilers() {
+        return hasSpoilers;
+    }
+
+    public void setHasSpoilers(boolean hasSpoilers) {
+        this.hasSpoilers = hasSpoilers;
+    }
+
     public int getRecommends() {
         return recommends;
+    }
+
+    public void setRecommends(int recommends) {
+        this.recommends = recommends;
     }
 
     @Override

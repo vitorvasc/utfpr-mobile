@@ -33,12 +33,13 @@ import com.vitor.controlefilmes.service.Constants;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class ReviewListActivity extends AppCompatActivity {
 
     private ReviewListAdapter reviewsAdapter;
-    private ArrayList<Pair<Review, Drawable>> reviewsList;
+    private ArrayList<Pair<Review, Drawable>> reviewsDrawableList;
     private Map<String, Drawable> movieImages;
     private ListView listViewReviews;
 
@@ -47,7 +48,7 @@ public final class ReviewListActivity extends AppCompatActivity {
     private androidx.appcompat.view.ActionMode actionMode;
     private View selectedView;
 
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             MenuInflater inflater = actionMode.getMenuInflater();
@@ -93,9 +94,6 @@ public final class ReviewListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_list);
-
-        ReviewsDatabase database = ReviewsDatabase.getInstance(this);
-        database.reviewDAO.load();
 
         listViewReviews = findViewById(R.id.listReviews);
         listViewReviews.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -172,7 +170,7 @@ public final class ReviewListActivity extends AppCompatActivity {
     }
 
     private void editReview() {
-        WriteReviewActivity.editReview(this, reviewsList.get(selectedPosition).first);
+        WriteReviewActivity.editReview(this, reviewsDrawableList.get(selectedPosition).first);
     }
 
     private void deleteReview() {
@@ -180,10 +178,10 @@ public final class ReviewListActivity extends AppCompatActivity {
         DialogInterface.OnClickListener listener = (dialogInterface, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    Review selectedReview = reviewsList.get(selectedPosition).first;
-                    ReviewsDatabase database = ReviewsDatabase.getInstance(context);
-                    database.reviewDAO.delete(selectedReview);
-                    reviewsList.remove(selectedPosition);
+                    Review selectedReview = reviewsDrawableList.get(selectedPosition).first;
+                    ReviewsDatabase database = ReviewsDatabase.getDatabase(context);
+                    database.reviewDao().delete(selectedReview);
+                    reviewsDrawableList.remove(selectedPosition);
                     reviewsAdapter.notifyDataSetChanged();
                     orderReviewList();
                     break;
@@ -206,16 +204,17 @@ public final class ReviewListActivity extends AppCompatActivity {
     }
 
     private void populateReviewsList() {
-        ReviewsDatabase database = ReviewsDatabase.getInstance(this);
-        reviewsList = new ArrayList<>();
+        ReviewsDatabase database = ReviewsDatabase.getDatabase(this);
+        List<Review> reviewList = database.reviewDao().queryAll();
+        reviewsDrawableList = new ArrayList<>();
 
-        for (Review r : database.reviewDAO.reviewList) {
-            reviewsList.add(Pair.create(r, movieImages.get(r.getTitle())));
+        for (Review r : reviewList) {
+            reviewsDrawableList.add(Pair.create(r, movieImages.get(r.getTitle())));
         }
 
         reviewsAdapter = new ReviewListAdapter(
                 this,
-                reviewsList
+                reviewsDrawableList
         );
         listViewReviews.setAdapter(reviewsAdapter);
     }
@@ -237,10 +236,10 @@ public final class ReviewListActivity extends AppCompatActivity {
     private void orderReviewList() {
         switch (orderBy) {
             case Constants.ORDER_BY_RATING:
-                Collections.sort(reviewsList, (o1, o2) -> Float.compare(o2.first.getRating(), o1.first.getRating()));
+                Collections.sort(reviewsDrawableList, (o1, o2) -> Float.compare(o2.first.getRating(), o1.first.getRating()));
                 break;
             case Constants.ORDER_BY_MOVIE_NAME:
-                Collections.sort(reviewsList, (o1, o2) -> o1.first.getTitle().compareTo(o2.first.getTitle()));
+                Collections.sort(reviewsDrawableList, (o1, o2) -> o1.first.getTitle().compareTo(o2.first.getTitle()));
                 break;
         }
     }

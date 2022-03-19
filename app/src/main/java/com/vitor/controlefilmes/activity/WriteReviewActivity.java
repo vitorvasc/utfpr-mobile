@@ -164,11 +164,11 @@ public final class WriteReviewActivity extends AppCompatActivity {
             return;
         }
 
-        ReviewsDatabase database = ReviewsDatabase.getInstance(this);
+        ReviewsDatabase database = ReviewsDatabase.getDatabase(this);
         if (requestCode == Constants.REQUEST_CODE_ADD_REVIEW) {
-            database.reviewDAO.insert(review);
+            database.reviewDao().insert(review);
         } else {
-            database.reviewDAO.alter(review);
+            database.reviewDao().update(review);
         }
 
         setResult(Activity.RESULT_OK);
